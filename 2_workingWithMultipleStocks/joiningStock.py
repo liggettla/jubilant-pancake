@@ -55,7 +55,5 @@ def test_run():
         # each set of data must have unique column names
         df1 = df1.join(df_temp) # use default how ='left' to keep all indices already in dataframe
 
-    print df1
-
 if __name__ == '__main__':
     test_run()
