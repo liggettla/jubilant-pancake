@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 def test_run():
 # Define a date range
     start_date = '2010-01-01'
-    end_date = '2013-12-31'
+    end_date = '2010-12-31'
 
     # print '\nCreating a list with dates as indices'
     dates = pd.date_range(start_date, end_date)
@@ -61,9 +61,12 @@ def test_run():
     plot_data(df1)
 
 # Plot stock prices
-def plot_data(df):
-   df.plot()
-   plt.show()
+def plot_data(df,title='Stock Prices'):
+    # ax here is a plot object
+    ax = df.plot(title=title, fontsize=2)
+    ax.set_xlabel("Date")
+    ax.set_ylabel("Price")
+    plt.show()
 
 
 if __name__ == '__main__':
