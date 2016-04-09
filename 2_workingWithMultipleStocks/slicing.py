@@ -41,7 +41,9 @@ def test_run():
         # each set of data must have unique column names
         df1 = df1.join(df_temp, how='left') # use default how ='left' to keep all indices already in dataframe
     # slice by row range using date indices and the DataFrame.ix[] selector
+    # slicing can also by done by item number like prind df1.ix[2:20]
     print df1.ix['2010-01-01':'2010-01-21']
+
 
 if __name__ == '__main__':
     test_run()
