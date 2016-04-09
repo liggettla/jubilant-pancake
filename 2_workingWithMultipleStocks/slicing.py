@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 def test_run():
 # Define a date range
     start_date = '2010-01-01'
-    end_date = '2010-12-31'
+    end_date = '2013-12-31'
 
     # print '\nCreating a list with dates as indices'
     dates = pd.date_range(start_date, end_date)
@@ -44,7 +44,7 @@ def test_run():
 
 # Row Slicing
     # slice by row range using date indices and the DataFrame.ix[] selector
-    # slicing can also by done by item number like prind df1.ix[2:20]
+    # slicing can also by done by item number like print df1.ix[2:20]
     # this also works:
     # print df1['2010-01-01':'2010-01-21']
     ''' print df1.ix['2010-01-01':'2010-01-21'] '''
@@ -57,8 +57,15 @@ def test_run():
 
 # Row and Column Slicing
     # if more than one column is needed when row slicing put column names in list at the end
-    print df1.ix['2010-03-10':'2010-03-15', ['SPY', 'IBM']]
-    plot_data(df1)
+    df2 = df1.ix['2010-03-10':'2013-03-15', ['SPY', 'IBM']]
+    #plot_data(df2)
+
+    df3 = df1.ix['2010-03-10':'2013-03-15', ['SPY', 'IBM', 'GLD', 'GOOG']]
+    x = len(df1.index)
+    print df1.ix[x-1]
+    df3 = normalize_data(df3, x)
+    #plot_data(df3)
+
 
 # Plot stock prices
 def plot_data(df,title='Stock Prices'):
@@ -68,6 +75,9 @@ def plot_data(df,title='Stock Prices'):
     ax.set_ylabel("Price")
     plt.show()
 
+# Normalizes two stock prices to make them plottable together
+def normalize_data(df, x):
+    return df / df.ix[0,:] # divides the entire dataframe by the first stock price
 
 if __name__ == '__main__':
     test_run()
