@@ -1,9 +1,10 @@
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def test_run():
 # Define a date range
     start_date = '2010-01-01'
-    end_date = '2010-12-31'
+    end_date = '2013-12-31'
 
     # print '\nCreating a list with dates as indices'
     dates = pd.date_range(start_date, end_date)
@@ -40,9 +41,29 @@ def test_run():
         # just calling this will cause a columns overlap error, because 'Adj Close' is the title in each data set
         # each set of data must have unique column names
         df1 = df1.join(df_temp, how='left') # use default how ='left' to keep all indices already in dataframe
+
+# Row Slicing
     # slice by row range using date indices and the DataFrame.ix[] selector
     # slicing can also by done by item number like prind df1.ix[2:20]
-    print df1.ix['2010-01-01':'2010-01-21']
+    # this also works:
+    # print df1['2010-01-01':'2010-01-21']
+    ''' print df1.ix['2010-01-01':'2010-01-21'] '''
+
+# Column Slicing
+    # single
+    ''' print df1['GOOG'] '''
+    # multiple
+    ''' print df1[['GOOG', 'IBM']] '''
+
+# Row and Column Slicing
+    # if more than one column is needed when row slicing put column names in list at the end
+    print df1.ix['2010-03-10':'2010-03-15', ['SPY', 'IBM']]
+    plot_data(df1)
+
+# Plot stock prices
+def plot_data(df):
+   df.plot()
+   plt.show()
 
 
 if __name__ == '__main__':
