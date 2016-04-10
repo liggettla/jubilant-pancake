@@ -64,7 +64,7 @@ def test_run():
     x = len(df1.index)
     print df1.ix[x-1]
     df3 = normalize_data(df3, x)
-    #plot_data(df3)
+    plot_data(df3)
 
 
 # Plot stock prices
@@ -77,7 +77,7 @@ def plot_data(df,title='Stock Prices'):
 
 # Normalizes two stock prices to make them plottable together
 def normalize_data(df, x):
-    return df / df.ix[0,:] # divides the entire dataframe by the first stock price
+    return (df / df.ix[-3,:] - 1) * 100 # divides the entire dataframe by the first stock price and converts to percent
 
 if __name__ == '__main__':
     test_run()
