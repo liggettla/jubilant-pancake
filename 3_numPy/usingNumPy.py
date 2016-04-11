@@ -31,7 +31,17 @@ def test_run():
     np.random.randint(10) # single integer between 0-10
     np.random.randint(0, 10) # same as above
     np.random.randint(0, 10, size=5) # integers between 0-10 filling 1D array
-    print np.random.randint(0, 10, size=(2, 4)) # 2x3 array of 0-10 integers
+    np.random.randint(0, 10, size=(2, 4)) # 2x3 array of 0-10 integers
+
+# reshaping arrays
+a = np.random.random((5, 4)) # 5x4 array of random numbers
+a
+a.shape # displays array dimensions
+a.shape[0] # displays number of rows
+a.shape[1] # displays number of columns
+len(a.shape) # displays number of dimensions
+a.size # number of elements in array
+a.dtype # shows type
 
 
 if __name__ == "__main__":
