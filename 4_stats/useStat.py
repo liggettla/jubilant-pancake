@@ -21,6 +21,15 @@ def get_data(symbols, dates):
 
     return df
 
+def global_stats(df):
+# computes global stats on all data in range
+    print 'Mean: '
+    print df.mean()
+    print '\nMedian: '
+    print df.median()
+    print '\nStdDev: '
+    print df.std()
+
 # Plot stock prices
 def plot_data(df,title='Stock Prices'):
     # ax here is a plot object
@@ -28,6 +37,19 @@ def plot_data(df,title='Stock Prices'):
     ax.set_xlabel("Date")
     ax.set_ylabel("Price")
     plt.show()
+
+def get_rolling_mean(values, window):
+    # compute rolling mean using a specified window
+    rm = pd.rolling_mean(values, window=window)
+    return rm
+
+def get_rolling_std(values, window):
+    pass
+
+def get_bollinger_bands(rm, rstd):
+# computing and plotting bollinger bands which are 2 stddev above/below rolling avg
+# the idea behind bollinger bands is to buy after price dips below mvavg and then comes back up above it
+    return upper_band, lower_band
 
 def test_run():
 # computing global statistics
@@ -38,29 +60,31 @@ def test_run():
     df = get_data(symbols, dates)
     #plot_data(df)
 
-    # these would be global stats on all data in range
-    #print df.mean()
-    df.median()
-    df.std()
-
-# computing and plotting bollinger bands which are 2 stddev above/below rolling avg
+    # plot SPY data, retain matplotlib axis object
+    #ax = df['SPY'].plot(title="SPY Rolling Mean", label='SPY')
     symbols = ['SPY']
     df = get_data(symbols, dates)
-
-    # plot SPY data, retain matplotlib axis object
-    ax = df['SPY'].plot(title="SPY Rolling Mean", label='SPY')
-
-    # compute rolling mean using a 20-day window
-    rm_SPY = pd.rolling_mean(df['SPY'], window=20)
-
+    rm = get_rolling_mean(df['SPY'], 50)
+    plot_data(rm)
     # add rolling mean to the same plot
-    rm_SPY.plot(label='Rolling mean', ax=ax)
+    #rm.plot(label='Rolling mean', ax=ax)
 
-    # add axis labels and legen
-    ax.set_xlabel("Date")
-    ax.set_ylabel("Price")
-    ax.legend(loc='upper left')
-    plt.show()
+
+
+
+
+
+
+    #global_stats(df)
+
+
+
+
+    # add axis labels and legend
+    #ax.set_xlabel("Date")
+    #ax.set_ylabel("Price")
+    #ax.legend(loc='upper left')
+    #plt.show()
 
 
 
