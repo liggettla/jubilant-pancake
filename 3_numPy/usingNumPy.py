@@ -94,6 +94,15 @@ def test_run():
     # or masking can be used to boolean compare directly
     a[a<mean]
 
+# arithmetic operations on arrays
+    a = np.array([(1,2,3,4,5), (10,20,30,40,50)])
+    b = np.array([(100,200,300,400,500), (1,2,3,4,5)], dtype='f')
+    a
+    a * 2
+    a / 2.0
+    a + b
+    a * b # multiplies each element together
+    print a / b
 
 
 
