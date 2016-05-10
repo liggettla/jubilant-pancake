@@ -44,15 +44,22 @@ def get_rolling_mean(values, window):
     return rm
 
 def get_rolling_std(values, window):
-    pass
+    rstd = pd.rolling_std(values, window=window)
+    return rstd
 
 def get_bollinger_bands(rm, rstd):
 # computing and plotting bollinger bands which are 2 stddev above/below rolling avg
 # the idea behind bollinger bands is to buy after price dips below mvavg and then comes back up above it
+    upper_band = rstd * 2 + rm
+    lower_band = rm - rstd * 2
     return upper_band, lower_band
 
 def test_run():
-# computing global statistics
+###############
+#Plot All Data#
+###############
+
+    # computing global statistics
     start_date = '2010-01-01'
     end_date = '2013-12-31'
     dates = pd.date_range(start_date, end_date)
@@ -63,26 +70,24 @@ def test_run():
     # plot out the data
     # plot_data(df)
 
+#############################
+#Plot RollMean and BollBands#
+#############################
+
     # plot SPY data, retain matplotlib axis object
     ax = df['SPY'].plot(title="SPY Rolling Mean", label='SPY')
     # get rolling mean
-    rm = get_rolling_mean(df['SPY'], 50)
+    rm = get_rolling_mean(df['SPY'], 20)
     # add rolling mean to the same plot
     rm.plot(label='Rolling mean', ax=ax)
+    # get rolling stdev
+    rstd = get_rolling_std(df['SPY'], 20)
+    # get bollinger bands
+    upper_band, lower_band = get_bollinger_bands(rm, rstd)
+    upper_band.plot(ax=ax)
+    lower_band.plot(ax=ax)
+
     plt.show()
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
     test_run()
