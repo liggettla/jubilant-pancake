@@ -56,18 +56,20 @@ def test_run():
     start_date = '2010-01-01'
     end_date = '2013-12-31'
     dates = pd.date_range(start_date, end_date)
-    symbols = ['XOM', 'GOOG', 'IBM', 'GLD']
+    symbols = ['SPY', 'XOM', 'GOOG', 'IBM', 'GLD']
     df = get_data(symbols, dates)
-    #plot_data(df)
+    # compute global stats
+    global_stats(df)
+    # plot out the data
+    # plot_data(df)
 
     # plot SPY data, retain matplotlib axis object
-    #ax = df['SPY'].plot(title="SPY Rolling Mean", label='SPY')
-    symbols = ['SPY']
-    df = get_data(symbols, dates)
+    ax = df['SPY'].plot(title="SPY Rolling Mean", label='SPY')
+    # get rolling mean
     rm = get_rolling_mean(df['SPY'], 50)
-    plot_data(rm)
     # add rolling mean to the same plot
-    #rm.plot(label='Rolling mean', ax=ax)
+    rm.plot(label='Rolling mean', ax=ax)
+    plt.show()
 
 
 
@@ -75,16 +77,10 @@ def test_run():
 
 
 
-    #global_stats(df)
 
 
 
 
-    # add axis labels and legend
-    #ax.set_xlabel("Date")
-    #ax.set_ylabel("Price")
-    #ax.legend(loc='upper left')
-    #plt.show()
 
 
 
