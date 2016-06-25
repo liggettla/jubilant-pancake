@@ -33,7 +33,7 @@ def global_stats(df):
 # Plot stock prices
 def plot_data(df,title='Stock Prices'):
     # ax here is a plot object
-    ax = df.plot(title=title, fontsize=2)
+    ax = df.plot(title=title, fontsize=12)
     ax.set_xlabel("Date")
     ax.set_ylabel("Price")
     plt.show()
@@ -54,19 +54,33 @@ def get_bollinger_bands(rm, rstd):
     lower_band = rm - rstd * 2
     return upper_band, lower_band
 
+def compute_daily_returns(df):
+# computes daily return values
+# manually calculating:
+    daily_returns = df.copy() # copy the dataFrame so that values can be altered
+    daily_returns[1:] = (df[1:] / df[:-1].values) - 1 # compute for row 1 onwards
+    daily_returns.ix[0, :] = 0 # set daily returns for row 0 to 0
+    return daily_returns
+
+# using pandas:
+    daily_returns = (df /df.shift(1)) - 1 # easier when just using pandas
+    daily_returns.ix[0, :] = 0 # by default pandas leaves the 0th row full of NaNs
+
 def test_run():
 ###############
 #Plot All Data#
 ###############
 
     # computing global statistics
-    start_date = '2010-01-01'
+    start_date = '2013-01-01'
     end_date = '2013-12-31'
     dates = pd.date_range(start_date, end_date)
     symbols = ['SPY', 'XOM', 'GOOG', 'IBM', 'GLD']
     df = get_data(symbols, dates)
     # compute global stats
     global_stats(df)
+    daily_return = compute_daily_returns(df)
+    plot_data(daily_return)
     # plot out the data
     # plot_data(df)
 
