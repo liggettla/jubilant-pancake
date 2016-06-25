@@ -1,6 +1,7 @@
 # this script builds a dataframe in pandas containing multiple stocks
 # SPY is a good control because it should be open on all market open days
 import pandas as pd
+import matplotlib.pyplot as plt
 
 def test_run():
     start_date = '2014-10-22'
@@ -52,7 +53,21 @@ def test_run():
 
         df1 = df1.dropna(subset=["SPY"]) # this drops only the nan values for the ref SPY data
 
-    print df1
+    return df1
+
+# Plot stock prices
+def plot_data(df,title='Stock Prices'):
+    # ax here is a plot object
+    ax = df.plot(title=title, fontsize=12)
+    ax.set_xlabel("Date")
+    ax.set_ylabel("Price")
+    plt.show()
 
 if __name__ == '__main__':
-    test_run()
+    df1 = test_run()
+    plot_data(df1)
+    # forward fill the gaps in the data
+    df1.fillna(method='ffill', inplace='TRUE') # first forward fill so as not to predict the future
+    df1.fillna(method='bfill', inplace='TRUE') # then backfill to fill in missing start date data
+    plot_data(df1)
+
