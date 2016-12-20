@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 #this script reads in data from AAPL.csv into a pandas dataframe
 import pandas as pd
 import matplotlib.pyplot as plt
