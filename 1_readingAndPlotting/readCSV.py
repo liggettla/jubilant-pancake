@@ -18,9 +18,9 @@ def test_run():
 
 #plotting data
     df['Adj Close'].plot()
-    plt.show()
+    #plt.show()
     df['High'].plot()
-    plt.show()
+    #plt.show()
     df[['Close', 'Adj Close']].plot()
     plt.show()
 
