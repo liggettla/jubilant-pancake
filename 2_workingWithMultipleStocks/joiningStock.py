@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+
 # this script builds a dataframe in pandas containing multiple stocks
 # SPY is a good control because it should be open on all market open days
 import pandas as pd
